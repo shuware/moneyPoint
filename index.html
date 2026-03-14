@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CASH TRACKING SYSTEM</title>
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="sidebar">
+ <h2>Cash System</h2>
+  <ul>
+   <li><a href="#" onclick="showPage('dashboardSection')">Dashboard</a></li>
+   <li><a href="#" onclick="showPage('initialCapitalSection')">Initial Capital</a></li>
+   <li><a href="#" onclick="showPage('chargeModal')">charges</a></li>
+   <li><a href="#" onclick="showPage('addCapitalModal')">capital</a></li>
+   <li><a href="#" onclick="showPage('commissionModal')">comission</a></li>
+   <li><a href="#" onclick="showPage('chargesSection')">balance</a></li>
+   <li><a href="#" onclick="showPage('reportsSection')">Reports</a></li>
+  </ul>
+</div>
+<div class="main">
+ <div class="topbar">
+  <span>Welcome User</span>
+  <button></button>
+ </div>
+<div id="main-content">
+  <div id="dashboardSection" class="page-content">
+   <form id="balanceForm">
+        <div class="form-group">
+          <label>Select Machine:</label>
+          <select id="machineSelect" required>
+            <option value="">-- Choose Machine --</option>
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Float:</label>
+          <input type="text" id="cashInMachine" required placeholder="Float" oninput="formatInput(event)">
+        </div>
+        
+        <div class="form-group">
+          <label>Dukani:</label>
+          <input type="text" id="cashAtShop" required placeholder="Dukani" oninput="formatInput(event)">
+        </div>
+        
+        <div class="form-group">
+          <label>Ndani:</label>
+          <input type="text" id="cashAtHome" required placeholder="Ndani" oninput="formatInput(event)">
+        </div>
+        
+        <div class="form-group">
+          <label>Date:</label>
+          <input type="date" id="balanceDate" value="">
+        </div>
+        
+        <button type="submit">Save Balance</button>
+      </form>
+       <div class="summary-section">
+        <h2>Balance Summary - <span id="summaryDateHeader" class="current-date">Today</span></h2>
+      
+      <div class="date-navigation">
+        <button id="prevDate" class="date-nav-btn">◀ Previous Day</button>
+        <span id="currentDateDisplay" class="current-date">Today</span>
+        <button id="nextDate" class="date-nav-btn">Next Day ▶</button>
+      </div>
+       <div id="balanceResult">
+
+<p>Float: <span id="showFloat"></span></p>
+<p>Shop: <span id="showShop"></span></p>
+<p>Home: <span id="showHome"></span></p>
+<p>Charge: <span id="showCharge"></span></p>
+<p>Commission: <span id="showCommission"></span></p>
+<p>Capital Added: <span id="showCapital"></span></p>
+<p>Total Today: <span id="showTotal"></span></p>
+
+<p>Non Capital: <span id="showNonCapital"></span></p>
+
+<p>Real Capital Today: <span id="showRealCapital"></span></p>
+
+<p>Difference: <span id="showDifference"></span></p>
+
+<p>New Capital Today: <span id="showNewCapital"></span></p>
+
+</div>
+    
+      
+      
+    </div>
+  </div>
+    </div>
+
+
+  
+
+  <!-- Add Capital Modal -->
+  <div id="addCapitalModal" class="page-content" style="display:none">
+    
+      <div class="modal-header">
+      <h2>Capital</h2>
+<select id="capitalMachineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+<input type="text" id="capitalAmount" placeholder="Amount">
+<select id="capitalLocation">
+    <option value="">Select Location</option>
+    <option value="cashMachine">Cash Machine</option>
+    <option value="shop">Shop</option>
+    <option value="home">Home</option>
+</select>
+<input type="date" id="capitalDate">
+<button type="button" id="saveCapital" class="save-btn">Add Capital</button>
+        </div>
+      </div>
+  
+  </div>
+
+  <!-- Add Charge Modal -->
+  <div id="chargeModal" class="page-content" style="display:none">
+    
+      <div class="modal-header">
+        <h2>Add Charge</h2>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="chargeMachineSelect">Select Machine:</label>
+          <select id="chargeMachineSelect" required>
+            <option value="">-- Choose Machine --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="chargeAmount">Charge Amount (TZS):</label>
+          <input type="text" id="chargeAmount" placeholder="Enter charge amount" oninput="formatInput(event)">
+        </div>
+        <div class="form-group">
+          <label for="chargeLocation">Location to Deduct From:</label>
+          <select id="chargeLocation">
+            <option value="cashMachine">Float (In Machine)</option>
+            <option value="cashShop">Cash at Shop</option>
+            <option value="cashHome">Cash at Home</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="chargeDate">Date:</label>
+          <input type="date" id="chargeDate">
+        </div>
+        <div class="modal-footer">
+          <button id="cancelCharge" class="cancel-btn">Cancel</button>
+          <button type="button" id="saveCharge" class="save-btn">Save Charge</button>
+        </div>
+      </div>
+ 
+  </div>
+
+  <!-- Add Commission Modal -->
+  <div id="commissionModal" class="page-content" style="display:none">
+  
+      <div class="modal-header">
+       <h2>Commission</h2>
+<select id="commissionMachineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+<input type="text" id="commissionAmount" placeholder="Amount">
+<select id="commissionLocation">
+    <option value="">Select Location</option>
+    <option value="cashMachine">Cash Machine</option>
+    <option value="shop">Shop</option>
+    <option value="home">Home</option>
+</select>
+<input type="date" id="commissionDate">
+<button type="button" id="saveCommission" class="save-btn">Save Commission</button>
+        </div>
+      </div>
+  
+  </div>
+
+  <div id="initialCapitalSection" class="page-content" style="display:none">
+    <h3>Add Machine</h3>
+    <div class="form-group">
+      <label>Machine Name</label>
+      <input type="text" id="machineName" onkeydown="handleKey(event)">
+    </div>
+    <div class="form-group">
+      <label>Float</label>
+      <input type="number" id="float" oninput="formatNumber(this)" onkeydown="handleKey(event)">
+    </div>
+    <div class="form-group">
+      <label>Cash at Shop</label>
+      <input type="number" id="shop" oninput="formatNumber(this)" onkeydown="handleKey(event)">
+    </div>
+    <div class="form-group">
+      <label>Cash at Home</label>
+      <input type="number" id="home" oninput="formatNumber(this)" onkeydown="handleKey(event)">
+    </div>
+    <button onclick="addMachine()">Add Machine</button>
+    <h3>Machines List</h3>
+    <table id="machineTable" border="1" width="100%">
+      <thead>
+        <tr>
+          <th>Machine</th>
+          <th>Float</th>
+          <th>Shop</th>
+          <th>Home</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <h3>Total Cash: <span id="totalCash">0</span> TZS</h3>
+  </div>
+
+  <div id="chargesSection" class="page-content" style="display:none">
+    <h2>Machine Balance</h2>
+
+   <input type="date" id="date">
+   <button onclick="loadBalance()">Load Balance</button>
+
+<div id="balanceTable"></div>
+  </div>
+
+  <div id="reportsSection" class="page-content" style="display:none">
+    <h3>Reports</h3>
+    <p>View reports of your cash flow and machines.</p>
+  </div>
+</div>
+
+
+
+
+<script src="js/intialcapital.js"></script>
+<script src="js/balance.js"></script>
+
+
+</body>
+</html>
