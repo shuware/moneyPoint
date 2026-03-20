@@ -14,11 +14,11 @@ $total = $float + $shop + $home;
 
 $sql = "UPDATE machines 
 SET machine_name='$name',
-float_amount='$float',
-cash_shop='$shop',
-cash_home='$home',
-total='$total'
-WHERE id='$id'";
+machine_float='$float',
+machine_shop='$shop',
+machine_home='$home',
+machine_total='$total'
+WHERE machine_id='$id'";
 
 $conn->query($sql);
 

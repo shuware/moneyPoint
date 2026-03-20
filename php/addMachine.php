@@ -10,7 +10,7 @@ $home = $data["home"];
 
 $total = $float + $shop + $home;
 
-$sql = "INSERT INTO machines(machine_name,float_amount,cash_shop,cash_home,total)
+$sql = "INSERT INTO machines(machine_name,machine_float,machine_shop,machine_home,machine_total)
 VALUES('$name','$float','$shop','$home','$total')";
 
 $conn->query($sql);

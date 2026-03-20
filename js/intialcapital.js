@@ -1,6 +1,5 @@
-// ===============================
+
 // PAGE NAVIGATION
-// ===============================
 function showPage(pageId) {
 
     const sections = document.querySelectorAll('.page-content');
@@ -16,50 +15,17 @@ function showPage(pageId) {
     }
 }
 
-
-// ===============================
 // GLOBAL VARIABLES
-// ===============================
 let editingId = null;
 let machinesAdded = new Set();
 
-
-// ===============================
 // STANDARDIZE MACHINE NAME
-// ===============================
 function standardizeMachineName(name){
     return name.trim().toUpperCase();
 }
 
-
-// ===============================
-// KEYBOARD NAVIGATION
-// ===============================
-function handleKey(e){
-
-    if(e.key === "Enter"){
-        e.preventDefault();
-        addMachine();
-    }
-
-    let inputs = ["machineName","float","shop","home"];
-    let idx = inputs.indexOf(e.target.id);
-
-    if(e.key === "ArrowDown"){
-        idx = (idx + 1) % inputs.length;
-        document.getElementById(inputs[idx]).focus();
-    }
-
-    if(e.key === "ArrowUp"){
-        idx = (idx - 1 + inputs.length) % inputs.length;
-        document.getElementById(inputs[idx]).focus();
-    }
-}
-
-
-// ===============================
 // CLEAR FORM
-// ===============================
+
 function clearForm(){
 
     document.getElementById("machineName").value = "";
@@ -70,10 +36,7 @@ function clearForm(){
     document.getElementById("machineName").focus();
 }
 
-
-// ===============================
 // SHOW INITIAL CAPITAL
-// ===============================
 function showInitialCapital(){
     document.getElementById("initialCapitalSection").style.display = "block";
 }
@@ -186,10 +149,10 @@ fetch("php/getMachines.php")
         let row = table.insertRow();
 
         row.insertCell(0).innerText = machine.machine_name;
-        row.insertCell(1).innerText = machine.float_amount;
-        row.insertCell(2).innerText = machine.cash_shop;
-        row.insertCell(3).innerText = machine.cash_home;
-        row.insertCell(4).innerText = machine.total;
+        row.insertCell(1).innerText = machine.machine_float;
+        row.insertCell(2).innerText = machine.machine_shop;
+        row.insertCell(3).innerText = machine.machine_home;
+        row.insertCell(4).innerText = machine.machine_total;
 
 
         // =============================
@@ -216,12 +179,12 @@ fetch("php/getMachines.php")
 
         editBtn.onclick = function(){
 
-            editingId = machine.id;
+            editingId = machine.machine_id;
 
             document.getElementById("machineName").value = machine.machine_name;
-            document.getElementById("float").value = machine.float_amount;
-            document.getElementById("shop").value = machine.cash_shop;
-            document.getElementById("home").value = machine.cash_home;
+            document.getElementById("float").value = machine.machine_float;
+            document.getElementById("shop").value = machine.machine_shop;
+            document.getElementById("home").value = machine.machine_home;
 
             document.getElementById("machineName").focus();
         };
@@ -236,9 +199,9 @@ fetch("php/getMachines.php")
 
         deleteBtn.onclick = function(){
 
-            if(confirm("Delete " + machine.machine_name + " ?")){
+            if(confirm("Delete " + machine.machine_id + " ?")){
 
-                fetch("php/deleteMachine.php?id=" + machine.id)
+                fetch("php/deleteMachine.php?machine_id=" + machine.machine_id)
 
                 .then(() => {
                     loadMachines();
@@ -258,7 +221,7 @@ fetch("php/getMachines.php")
         actionCell.appendChild(deleteBtn);
 
 
-        totalCash += parseFloat(machine.total);
+        totalCash += parseFloat(machine.machine_total);
 
     });
 
