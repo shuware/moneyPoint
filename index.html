@@ -61,6 +61,92 @@
     </table>
     <h3>Total Cash: <span id="totalCash">0</span> TZS</h3>
   </div>
+  <!--daily balance-->
+<div id="dashboardSection" class="page-content">
+         <h2>select Machine</h2>
+<select id="machineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+    <label>Float:</label>
+    <input type="text" id="dailyfloat" required><br><br>
+
+    <label>Shop:</label>
+    <input type="text" id="dailyshop" required><br><br>
+
+    <label>Home:</label>
+    <input type="text" id="dailyhome" required><br><br>
+
+    <label>Date:</label>
+    <input type="date" id="dailydate" required><br><br>
+
+    <button type="button" id="dailys">Save</button>
+</div>
+  <!-- charges add -->
+   <div id="chargeModal" class="page-content" style="display:none">
+         <div class="modal-header">
+      <h2>Charge</h2>
+<select id="chargeMachineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+<input type="text" id="chargeAmount" placeholder="Amount">
+<select id="chargeLocation">
+    <option value="">Select Location</option>
+    <option value="cashMachine">Cash Machine</option>
+    <option value="shop">Shop</option>
+    <option value="home">Home</option>
+</select>
+<input type="date" id="chargeDate">
+<button type="button" id="saveCharge" class="save-btn">Add Charge</button>
+        </div>
+  </div>
+  <div id="commissionModal" class="page-content" style="display:none">
+  
+      <div class="modal-header">
+       <h2>Commission</h2>
+<select id="commissionMachineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+<input type="text" id="commissionAmount" placeholder="Amount">
+<select id="commissionLocation">
+    <option value="">Select Location</option>
+    <option value="cashMachine">Cash Machine</option>
+    <option value="shop">Shop</option>
+    <option value="home">Home</option>
+</select>
+<input type="date" id="commissionDate">
+<button type="button" id="saveCommission" class="save-btn">Save Commission</button>
+        </div>
+      </div>
+  
+  </div>
+<div id="addCapitalModal" class="page-content" style="display:none">
+    
+      <div class="modal-header">
+      <h2>Capital</h2>
+<select id="capitalMachineSelect">
+    <option value="">Select Machine</option>
+    <option value="MACHINE1">MACHINE1</option>
+    <option value="MACHINE2">MACHINE2</option>
+</select>
+<input type="text" id="capitalAmount" placeholder="Amount">
+<select id="capitalLocation">
+    <option value="">Select Location</option>
+    <option value="cashMachine">Cash Machine</option>
+    <option value="shop">Shop</option>
+    <option value="home">Home</option>
+</select>
+<input type="date" id="capitalDate">
+<button type="button" id="saveCapital" class="save-btn">Add Capital</button>
+        </div>
+      </div>
+  
+  </div>
 
 
 
@@ -74,7 +160,13 @@
 
 
 <script src="js/intialcapital.js"></script>
-<script src="js/saveDailyBalance.js"></script>
+<script src="js/savedaily.js"></script>
+
+<script src="js/savec.js"></script>
+<script src="js/savecapital.js"></script>
+<script src="js/saveCCharge.js"></script>
+
+
 
 
 

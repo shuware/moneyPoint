@@ -204,3 +204,40 @@ font-weight:bold;
 color:green;
 font-weight:bold;
 }
+
+/* display block*/
+
+.record-card{
+  background:#2f3e4e;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  width:300px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.3);
+}
+
+.record-card h4{
+  margin:0 0 10px 0;
+}
+
+.record-row{
+  display:flex;
+  justify-content:space-between;
+  margin:5px 0;
+  font-size:14px;
+}
+
+.green-box{
+  background:#2e7d32;
+  padding:8px;
+  border-radius:5px;
+  margin-top:10px;
+}
+
+.red-box{
+  background:#8b3a3a;
+  padding:8px;
+  border-radius:5px;
+  margin-top:10px;
+  text-align:center;
+}

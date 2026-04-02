@@ -13,7 +13,7 @@ if(empty($machine) || empty($amount) || empty($location) || empty($date)){
     exit;
 }
 
-$sql = "INSERT INTO commissions (machine_name, amount, location, date)
+$sql = "INSERT INTO commission (commission_name, commission_amount, commission_location, commission_date)
         VALUES ('$machine','$amount','$location','$date')";
 
 if($conn->query($sql) === TRUE){

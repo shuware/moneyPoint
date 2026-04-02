@@ -13,7 +13,7 @@ if(empty($machine) || empty($amount) || empty($location) || empty($date)){
     exit;
 }
 
-$sql = "INSERT INTO capital_added (machine_name, amount, location, date) 
+$sql = "INSERT INTO capital(capital_name, capital_amount, capital_location, capital_date) 
         VALUES ('$machine','$amount','$location','$date')";
 
 if($conn->query($sql) === TRUE){

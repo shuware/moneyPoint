@@ -90,10 +90,8 @@ function addMachine(){
     });
 }
 
-
-// ===============================
 // LOAD MACHINES
-// ===============================
+
 function loadMachines(){
 
 fetch("php/getMachines.php")
@@ -102,9 +100,7 @@ fetch("php/getMachines.php")
 
 .then(data => {
 
-    // =============================
     // TABLE SECTION
-    // =============================
 
     let table = document.querySelector("#machineTable tbody");
 
@@ -114,16 +110,14 @@ fetch("php/getMachines.php")
 
     let totalCash = 0;
 
-
-    // =============================
     // SELECT DROPDOWNS
-    // =============================
 
     const selects = [
         document.getElementById("machineSelect"),
         document.getElementById("capitalMachineSelect"),
         document.getElementById("chargeMachineSelect"),
-        document.getElementById("commissionMachineSelect")
+        document.getElementById("commissionMachineSelect"),
+       
     ];
 
     // clear old options
@@ -132,19 +126,13 @@ fetch("php/getMachines.php")
         select.innerHTML = '<option value="">-- Choose Machine --</option>';
     });
 
-
-    // =============================
     // LOOP MACHINES
-    // =============================
 
     data.forEach(machine => {
 
         machinesAdded.add(standardizeMachineName(machine.machine_name));
 
-
-        // =============================
         // ADD TO TABLE
-        // =============================
 
         let row = table.insertRow();
 
@@ -154,10 +142,7 @@ fetch("php/getMachines.php")
         row.insertCell(3).innerText = machine.machine_home;
         row.insertCell(4).innerText = machine.machine_total;
 
-
-        // =============================
         // ADD MACHINE TO SELECTS
-        // =============================
 
         selects.forEach(select=>{
             if(!select) return;
@@ -169,10 +154,7 @@ fetch("php/getMachines.php")
             select.appendChild(option);
         });
 
-
-        // =============================
         // EDIT BUTTON
-        // =============================
 
         let editBtn = document.createElement("button");
         editBtn.innerText = "Edit";
@@ -189,10 +171,7 @@ fetch("php/getMachines.php")
             document.getElementById("machineName").focus();
         };
 
-
-        // =============================
         // DELETE BUTTON
-        // =============================
 
         let deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Delete";
@@ -209,10 +188,7 @@ fetch("php/getMachines.php")
             }
         };
 
-
-        // =============================
         // ACTION CELL
-        // =============================
 
         let actionCell = row.insertCell(5);
 
@@ -225,10 +201,7 @@ fetch("php/getMachines.php")
 
     });
 
-
-    // =============================
     // TOTAL CASH
-    // =============================
 
     document.getElementById("totalCash").innerText =
         totalCash.toLocaleString();
@@ -236,11 +209,7 @@ fetch("php/getMachines.php")
 });
 }
 
-
-
-// ===============================
 // AUTO LOAD WHEN PAGE OPENS
-// ===============================
 window.onload = function(){
 
     loadMachines();
@@ -249,154 +218,7 @@ window.onload = function(){
 
 
 
-document.addEventListener("DOMContentLoaded", function(){
 
-let today = new Date().toISOString().split("T")[0];
 
-loadDashboard(today);
 
-});
-
-document.getElementById("balanceForm").addEventListener("submit", function(e){
-
-e.preventDefault();
-
-let machine = document.getElementById("machineSelect").value;
-let float = document.getElementById("cashInMachine").value.replace(/,/g,'');
-let shop = document.getElementById("cashAtShop").value.replace(/,/g,'');
-let home = document.getElementById("cashAtHome").value.replace(/,/g,'');
-let date = document.getElementById("balanceDate").value;
-
-fetch("php/saveBalance.php",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-machine:machine,
-float:float,
-shop:shop,
-home:home,
-date:date
-})
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-alert("Balance Saved");
-
-loadDashboard(date);
-
-});
-
-});
-
-document.getElementById("saveCharge").onclick = function(){
-
-let machine = document.getElementById("chargeMachineSelect").value;
-let amount = document.getElementById("chargeAmount").value.replace(/,/g,'');
-let location = document.getElementById("chargeLocation").value;
-let date = document.getElementById("chargeDate").value;
-
-fetch("php/saveCharge.php",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-machine:machine,
-amount:amount,
-location:location,
-date:date
-})
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-alert("Charge Saved");
-
-loadDashboard(date);
-
-});
-
-};
-
-document.getElementById("saveCapital").onclick = function(){
-    let machine = document.getElementById("capitalMachineSelect").value;
-    let amount = document.getElementById("capitalAmount").value.replace(/,/g,'');
-    let location = document.getElementById("capitalLocation").value;
-    let date = document.getElementById("capitalDate").value;
-
-    // DEBUG: Check values before sending
-    console.log("Capital Debug:", machine, amount, location, date);
-
-    if(!machine || !amount || !location || !date){
-        alert("Please fill all fields!");
-        return;
-    }
-
-    fetch("php/saveCapital.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({machine, amount, location, date})
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.status === "success"){
-            alert("Capital Added!");
-            loadDashboard(date);
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
-    .catch(err => {
-        console.error("Fetch error:", err);
-        alert("Network or server error!");
-    });
-};
-document.getElementById("saveCommission").onclick = function(){
-    let machine = document.getElementById("commissionMachineSelect").value;
-    let amount = document.getElementById("commissionAmount").value.replace(/,/g,'');
-    let location = document.getElementById("commissionLocation").value;
-    let date = document.getElementById("commissionDate").value;
-
-    // DEBUG: Check values before sending
-    console.log("Commission Debug:", machine, amount, location, date);
-
-    if(!machine || !amount || !location || !date){
-        alert("Please fill all fields!");
-        return;
-    }
-
-    fetch("php/saveCommission.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({machine, amount, location, date})
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.status === "success"){
-            alert("Commission Saved!");
-            loadDashboard(date);
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
-    .catch(err => {
-        console.error("Fetch error:", err);
-        alert("Network or server error!");
-    });
-};
 

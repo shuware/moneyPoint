@@ -9,8 +9,8 @@ $amount = $data["amount"];
 $location = $data["location"];
 $date = $data["date"];
 
-$sql = "INSERT INTO charges(machine_name,amount,location,date)
-VALUES('$machine','$amount','$location','$date')";
+$sql = "INSERT INTO charge(charge_name,charge_amount,charge_location,charge_date)
+        VALUES('$machine','$amount','$location','$date')";
 
 $conn->query($sql);
 
