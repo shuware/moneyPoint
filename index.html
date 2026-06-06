@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CASH TRACKING SYSTEM</title>
-<link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-<div class="sidebar">
- <h2>Cash System</h2>
-  <ul>
-   <li><a href="#" onclick="showPage('dashboardSection')">Dashboard</a></li>
-   <li><a href="#" onclick="showPage('initialCapitalSection')">Initial Capital</a></li>
-   <li><a href="#" onclick="showPage('chargeModal')">charges</a></li>
-   <li><a href="#" onclick="showPage('addCapitalModal')">capital</a></li>
-   <li><a href="#" onclick="showPage('commissionModal')">comission</a></li>
-   <li><a href="#" onclick="showPage('chargesSection')">balance</a></li>
-   <li><a href="#" onclick="showPage('reportsSection')">Reports</a></li>
-  </ul>
-</div>
-<div class="main">
- <div class="topbar">
-  <span>Welcome User</span>
-  <button></button>
- </div>
+ <html lang="en">
+  <head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>CASH TRACKING SYSTEM</title>
+      <link rel="stylesheet" href="css/index.css">
+      <link rel="stylesheet" href="css/balance.css">
 
-  <div id="initialCapitalSection" class="page-content" style="display:none">
-    <h3>Add Machine</h3>
+  </head>
+<body>
+ <div class="sidebar">
+  <h2>Cash System</h2>
+   <ul>
+    <li><a href="#" onclick="showPage('dashboardSection')">Dashboard</a></li>
+    <li><a href="#" onclick="showPage('initialCapitalSection')">Initial Capital</a></li>
+    <li><a href="#" onclick="showPage('chargeModal')">charges</a></li>
+    <li><a href="#" onclick="showPage('addCapitalModal')">capital</a></li>
+    <li><a href="#" onclick="showPage('commissionModal')">comission</a></li>
+    <li><a href="#" onclick="showPage('chargesSection')">balance</a></li>
+    <li><a href="#" onclick="showPage('reportsSection')">Reports</a></li>
+   </ul>
+ </div>
+<div class="main">
+   <div class="topbar">
+    <span>Welcome User</span>
+    <button></button>
+   </div>
+
+ <div id="initialCapitalSection" class="page-content" style="display:none">
+   <h3>Add Machine</h3>
     <div class="form-group">
       <label>Machine Name</label>
       <input type="text" id="machineName" >
@@ -60,7 +62,7 @@
       </tbody>
     </table>
     <h3>Total Cash: <span id="totalCash">0</span> TZS</h3>
-  </div>
+ </div>
   <!--daily balance-->
 <div id="dashboardSection" class="page-content">
          <h2>select Machine</h2>
@@ -124,7 +126,7 @@
         </div>
       </div>
   
-  </div>
+  
 <div id="addCapitalModal" class="page-content" style="display:none">
     
       <div class="modal-header">
@@ -145,8 +147,64 @@
 <button type="button" id="saveCapital" class="save-btn">Add Capital</button>
         </div>
       </div>
-  
-  </div>
+<div id="chargesSection" class="page-content" style="display:none">
+
+<h2>Balance Machines</h2>
+
+<table border="1" width="100%" id="balanceTable">
+
+<thead>
+
+<tr>
+
+<th>Machine</th>
+<th>Current Difference</th>
+<th>Corrected Difference</th>
+<th>New Capital Today (After)</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+
+<div id="recommendationsSection">
+
+<h3>Recommended Corrections</h3>
+
+<table border="1" width="100%">
+
+<thead>
+
+<tr>
+
+<th>From Machine</th>
+<th>To Machine</th>
+<th>Amount</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recommendationsBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div id="summaryNote" class="summary-note">
+
+</div>
+
+</div>
 
 
 
@@ -161,10 +219,11 @@
 
 <script src="js/intialcapital.js"></script>
 <script src="js/savedaily.js"></script>
-
 <script src="js/savec.js"></script>
 <script src="js/savecapital.js"></script>
 <script src="js/saveCCharge.js"></script>
+<script src="js/balance.js"></script>
+
 
 
 

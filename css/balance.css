@@ -1,0 +1,61 @@
+.positive{
+
+color:#27ae60;
+
+font-weight:bold;
+
+}
+
+.negative{
+
+color:#e74c3c;
+
+font-weight:bold;
+
+}
+
+.zero{
+
+color:gray;
+
+}
+
+.summary-note{
+
+background:#f0f3f5;
+
+padding:15px;
+
+margin-top:20px;
+
+border-radius:8px;
+
+line-height:1.6;
+
+}
+
+#recommendationsSection{
+
+margin-top:30px;
+
+}
+
+#recommendationsSection table{
+
+margin-top:10px;
+
+}
+
+#balanceTable td,
+#balanceTable th{
+
+padding:10px;
+
+}
+
+#recommendationsSection td,
+#recommendationsSection th{
+
+padding:10px;
+
+}
