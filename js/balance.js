@@ -1,3 +1,73 @@
+let balancedData = [];
+
+document
+.getElementById(
+"saveBalancedDataBtn"
+)
+.addEventListener(
+"click",
+saveBalancedData
+);
+
+function saveBalancedData(){
+
+if(
+balancedData.length===0
+){
+
+alert(
+"No balanced data"
+);
+
+return;
+
+}
+
+fetch(
+"php/correctBal.php",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(
+balancedData
+)
+
+}
+
+)
+
+.then(
+res=>res.text()
+)
+
+.then(msg=>{
+
+alert(
+"Saved Successfully"
+);
+
+console.log(msg);
+
+})
+
+.catch(err=>{
+
+console.log(err);
+
+alert(
+"Failed to save"
+);
+
+});
+
+}
 document.addEventListener("DOMContentLoaded", () => {
     loadBalance();
 });
@@ -83,14 +153,24 @@ function calculateBalance(data) {
     }
 
     // Store results for display
-    data.forEach(machine => {
-        machine.correctedDifference = machine.remainingDifference;
-        machine.correctedCapital = machine.updatedCapital;
-    });
+data.forEach(machine => {
 
-    displayBalance(data);
-    displayRecommendations(corrections);
-    displaySummary(data);
+machine.correctedDifference =
+machine.remainingDifference;
+
+machine.correctedCapital =
+machine.updatedCapital;
+
+});
+
+// STORE DATA GLOBALLY
+balancedData = data;
+
+displayBalance(data);
+
+displayRecommendations(corrections);
+
+displaySummary(data);
 }
 
 function displayBalance(data) {
