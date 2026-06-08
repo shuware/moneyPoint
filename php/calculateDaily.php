@@ -33,8 +33,8 @@ $home  = $cash['cash_home'];
 // 2. CHARGES
 // =======================
 $sql = "SELECT SUM(charge_amount) AS total 
-        FROM charges 
-        WHERE charge_machine='$machine' AND charge_date='$date'";
+        FROM charge 
+        WHERE charge_name='$machine' AND charge_date='$date'";
 
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -45,37 +45,86 @@ $charges = $row['total'] ? $row['total'] : 0;
 // =======================
 $sql = "SELECT SUM(commission_amount) AS total 
         FROM commission 
-        WHERE commission_machine='$machine' AND commission_date='$date'";
+        WHERE commission_name='$machine' AND commission_date='$date'";
 
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$commission = $row['total'] ? $row['total'] : 0;
+$commissions = $row['total'] ? $row['total'] : 0;
 
 // =======================
 // 4. CALCULATIONS
 // =======================
 $totalToday = $float + $shop + $home;
 
-$nonCapital = $charges + $commission;
+$nonCapital = $charges + $commissions;
 
 $realCapital = $totalToday - $nonCapital;
 
 // =======================
 // 5. YESTERDAY
 // =======================
-$sql = "SELECT * FROM calculation 
-        WHERE cal_name='$machine'
-        ORDER BY calc_date DESC 
-        LIMIT 1";
+// =======================
+// 5. YESTERDAY BALANCED DATA
+// =======================
 
-$result = mysqli_query($conn, $sql);
-$yesterday = mysqli_fetch_assoc($result);
+$sql = "
 
-if (!$yesterday) {
-    $initial = $totalToday;
-    $difference = $realCapital - $initial;
-} else {
-    $difference = ($realCapital - $yesterday['new_capital']) + $yesterday['difference'];
+SELECT
+corrected_difference,
+corrected_capital
+
+FROM balanced_table
+
+WHERE cash_name='$machine'
+
+ORDER BY balance_date DESC
+
+LIMIT 1
+
+";
+
+$result =
+mysqli_query(
+$conn,
+$sql
+);
+
+$yesterday =
+mysqli_fetch_assoc(
+$result
+);
+
+if(!$yesterday){
+
+$initial =
+$totalToday;
+
+$difference =
+$realCapital -
+$initial;
+
+}else{
+
+$difference =
+
+(
+
+$realCapital
+
+-
+
+$yesterday[
+'corrected_capital'
+]
+
+)
+
++
+
+$yesterday[
+'corrected_difference'
+];
+
 }
 
 // =======================

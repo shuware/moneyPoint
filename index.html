@@ -150,9 +150,24 @@
 <div id="chargesSection" class="page-content" style="display:none">
 
 <h2>Balance Machines</h2>
+
 <div class="action-bar">
-      <button id="saveBalancedDataBtn" class="btn-success">💾 Save Balanced Data to Database</button>
+
+<button id="loadBalanceBtn">
+Load Calculate Data
+</button>
+
+<button id="balanceBtn">
+Balance Machines
+</button>
+
+<button id="saveBalancedDataBtn">
+💾 Save Balanced Data
+</button>
+
 </div>
+
+
 <table border="1" width="100%" id="balanceTable">
 
 <thead>
@@ -160,24 +175,27 @@
 <tr>
 
 <th>Machine</th>
+
 <th>Current Difference</th>
+
+<th>Current Capital</th>
+
 <th>Corrected Difference</th>
-<th>New Capital Today (After)</th>
+
+<th>Corrected Capital</th>
 
 </tr>
 
 </thead>
 
-<tbody>
+<tbody id="balanceBody">
 
 </tbody>
 
 </table>
 
 
-<div id="recommendationsSection">
-
-<h3>Recommended Corrections</h3>
+<h3>Balance Transfers</h3>
 
 <table border="1" width="100%">
 
@@ -186,8 +204,10 @@
 <tr>
 
 <th>From Machine</th>
+
 <th>To Machine</th>
-<th>Amount</th>
+
+<th>Amount Used</th>
 
 </tr>
 
@@ -199,15 +219,21 @@
 
 </table>
 
+
+<div id="summaryNote">
+
+<h3>Summary</h3>
+
+<p>Total Positive :</p>
+
+<p>Total Negative :</p>
+
+<p>Status :</p>
+
 </div>
 
 
-<div id="summaryNote" class="summary-note">
-
 </div>
-
-</div>
-
 
 
   <div id="reportsSection" class="page-content" style="display:none">
