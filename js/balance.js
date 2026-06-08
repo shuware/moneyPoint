@@ -75,12 +75,18 @@ document
 .getElementById(
 "balanceBtn"
 )
-.addEventListener(
+addEventListener(
 "click",
 balanceMachines
 );
 
 function balanceMachines(){
+    document.getElementById(
+"recommendationsBody"
+).innerHTML="";
+
+let totalPositive=0;
+let totalNegative=0;
 
 const rows=
 document.querySelectorAll(
@@ -100,7 +106,7 @@ row.querySelector(
 );
 
 if(diff>0){
-
+totalPositive += diff;
 positives.push({
 
 row,
@@ -112,6 +118,7 @@ amount:diff
 }
 
 if(diff<0){
+    totalNegative += Math.abs(diff);
 
 negatives.push({
 
@@ -128,44 +135,68 @@ amount:Math.abs(diff)
 
 negatives.forEach(neg=>{
 
-positives.forEach(pos=>{
+for(let pos of positives){
 
-if(
-neg.amount<=0
-||
-pos.amount<=0
-){
+if(neg.amount<=0) break;
+if(pos.amount<=0) continue;
 
-return;
+const used = Math.min(neg.amount, pos.amount);
+
+neg.amount -= used;
+pos.amount -= used;
+
+updateRow(neg.row, used, true);
+updateRow(pos.row, used, false);
+
+document.getElementById(
+"recommendationsBody"
+).innerHTML += `
+
+<tr>
+
+<td>
+${pos.row.cells[0].innerText}
+</td>
+
+<td>
+${neg.row.cells[0].innerText}
+</td>
+
+<td>
+${used}
+</td>
+
+</tr>
+
+`;
+
 
 }
 
-const used=
-Math.min(
-neg.amount,
-pos.amount
-);
-
-neg.amount-=used;
-
-pos.amount-=used;
-
-updateRow(
-neg.row,
-used,
-true
-);
-
-updateRow(
-pos.row,
-used,
-false
-);
-
 });
 
-});
+document.getElementById(
+"summaryNote"
+).innerHTML = `
 
+<h3>Summary</h3>
+
+<p>
+Total Positive :
+${totalPositive}
+</p>
+
+<p>
+Total Negative :
+${totalNegative}
+</p>
+
+<p>
+Status :
+Balanced Complete
+</p>
+
+`;
 }
 
 function updateRow(
@@ -211,64 +242,5 @@ cap-=amount;
 diffCell.innerText=diff;
 
 capCell.innerText=cap;
-
-}
-
-document
-.getElementById(
-"saveBalancedDataBtn"
-)
-.addEventListener(
-"click",
-saveBalance
-);
-
-function saveBalance(){
-
-const rows=
-document.querySelectorAll(
-"#balanceBody tr"
-);
-
-let data=[];
-
-rows.forEach(row=>{
-
-data.push({
-
-cash_name:
-row.cells[0].innerText,
-
-corrected_difference:
-row.cells[3].innerText,
-
-corrected_capital:
-row.cells[4].innerText
-
-});
-
-});
-
-fetch(
-"php/save_balance.php",
-{
-
-method:"POST",
-
-body:JSON.stringify(
-data
-)
-
-}
-
-)
-
-.then(res=>res.text())
-
-.then(msg=>{
-
-alert(msg)
-
-})
 
 }
