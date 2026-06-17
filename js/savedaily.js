@@ -1,3 +1,4 @@
+
 document.getElementById("dailys").addEventListener("click", function() {
     const machine = document.getElementById("machineSelect").value;
     const float = document.getElementById("dailyfloat").value;
@@ -27,3 +28,4 @@ document.getElementById("dailys").addEventListener("click", function() {
     })
     .catch(err => console.error(err));
 });
+

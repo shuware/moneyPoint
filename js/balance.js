@@ -244,3 +244,71 @@ diffCell.innerText=diff;
 capCell.innerText=cap;
 
 }
+document
+.getElementById("saveBalancedDataBtn")
+.addEventListener(
+"click",
+function(){
+console.log("Button Working");
+saveBalancedData();
+}
+);
+
+function saveBalancedData(){
+
+const rows =
+document.querySelectorAll(
+"#balanceBody tr"
+);
+
+let data = [];
+
+rows.forEach(row=>{
+
+data.push({
+
+cash_name:
+row.cells[0].innerText,
+
+corrected_difference:
+parseFloat(
+row.querySelector(
+".correctedDifference"
+).innerText
+),
+
+corrected_capital:
+parseFloat(
+row.querySelector(
+".correctedCapital"
+).innerText
+)
+
+});
+
+});
+console.log("Save button clicked");
+fetch(
+"php/save_balance.php",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+}
+)
+.then(res=>res.text())
+.then(result=>{
+
+console.log(result);
+alert(result);
+
+})
+.catch(error=>{
+
+console.error(error);
+
+});
+
+}

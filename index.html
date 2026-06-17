@@ -27,7 +27,7 @@
     <button></button>
    </div>
 
- <div id="initialCapitalSection" class="page-content" style="display:none">
+ <div id="initialCapitalSection" class="page-content"  style="display:none">
    <h3>Add Machine</h3>
     <div class="form-group">
       <label>Machine Name</label>
@@ -35,19 +35,19 @@
     </div>
     <div class="form-group">
       <label>Float</label>
-      <input type="number" id="float" oninput="formatNumber(this)" >
+      <input type="text" id="float" class="money" >
     </div>
     <div class="form-group">
       <label>Cash at Shop</label>
-      <input type="number" id="shop" oninput="formatNumber(this)" >
+      <input type="text" id="shop" class="money">
     </div>
     <div class="form-group">
       <label>Cash at Home</label>
-      <input type="number" id="home" oninput="formatNumber(this)" >
+      <input type="text" id="home" class="money" >
     </div>
     <button onclick="addMachine()">Add Machine</button>
     <h3>Machines List</h3>
-    <table id="machineTable" border="1" width="100%">
+    <table id="machineTable" border="1" width="100%" class="money">
       <thead>
         <tr>
           <th>Machine</th>
@@ -72,13 +72,13 @@
     <option value="MACHINE2">MACHINE2</option>
 </select>
     <label>Float:</label>
-    <input type="text" id="dailyfloat" required><br><br>
+    <input type="text" id="dailyfloat" class="money" required><br><br>
 
     <label>Shop:</label>
-    <input type="text" id="dailyshop" required><br><br>
+    <input type="text" id="dailyshop" class="money" required><br><br>
 
     <label>Home:</label>
-    <input type="text" id="dailyhome" required><br><br>
+    <input type="text" id="dailyhome" class="money" required><br><br>
 
     <label>Date:</label>
     <input type="date" id="dailydate" required><br><br>
@@ -94,7 +94,7 @@
     <option value="MACHINE1">MACHINE1</option>
     <option value="MACHINE2">MACHINE2</option>
 </select>
-<input type="text" id="chargeAmount" placeholder="Amount">
+<input type="text" id="chargeAmount" placeholder="Amount" class="money">
 <select id="chargeLocation">
     <option value="">Select Location</option>
     <option value="cashMachine">Cash Machine</option>
@@ -114,7 +114,7 @@
     <option value="MACHINE1">MACHINE1</option>
     <option value="MACHINE2">MACHINE2</option>
 </select>
-<input type="text" id="commissionAmount" placeholder="Amount">
+<input type="text" id="commissionAmount" placeholder="Amount" class="money">
 <select id="commissionLocation">
     <option value="">Select Location</option>
     <option value="cashMachine">Cash Machine</option>
@@ -136,7 +136,7 @@
     <option value="MACHINE1">MACHINE1</option>
     <option value="MACHINE2">MACHINE2</option>
 </select>
-<input type="text" id="capitalAmount" placeholder="Amount">
+<input type="text" id="capitalAmount" placeholder="Amount" class="money">
 <select id="capitalLocation">
     <option value="">Select Location</option>
     <option value="cashMachine">Cash Machine</option>
@@ -236,12 +236,43 @@ Balance Machines
 </div>
 
 
-  <div id="reportsSection" class="page-content" style="display:none">
-    <h3>Reports</h3>
-    <p>View reports of your cash flow and machines.</p>
-  </div>
-</div>
+<div id="reportsSection" class="page-content" style="display:none">
 
+    <h3>Reports</h3>
+
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>Machine</th>
+                <th>Float</th>
+                <th>Shop</th>
+                <th>Home</th>
+                <th>Total Today</th>
+                <th>Charge</th>
+                <th>Commission</th>
+                <th>Difference</th>
+                <th>Correct Difference</th>
+                <th>New Capital After Correction</th>
+            </tr>
+        </thead>
+
+        <tbody id="reportBody">
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th colspan="4">SUMMARY</th>
+                <th id="totalToday"></th>
+                <th id="totalCharge"></th>
+                <th id="totalCommission"></th>
+                <th id="totalDifference"></th>
+                <th id="totalNonCapital"></th>
+                <th id="totalNewCapital"></th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
 
 
 
@@ -251,6 +282,9 @@ Balance Machines
 <script src="js/savecapital.js"></script>
 <script src="js/saveCCharge.js"></script>
 <script src="js/balance.js"></script>
+<script src="js/format.js"></script>
+<script src="js/direc.js"></script>
+<script src="js/repor.js"></script>
 
 
 
