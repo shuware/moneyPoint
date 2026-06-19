@@ -2,6 +2,8 @@
 
 include 'db.php';
 
+$today = date("Y-m-d");
+
 $sql = "
 SELECT
 
@@ -26,12 +28,14 @@ FROM dailycash d
 
 LEFT JOIN calculate c
 ON d.cash_name = c.cash_name
+AND c.calc_date = '$today'
 
 LEFT JOIN
 (
     SELECT charge_name,
            SUM(charge_amount) total_charge
     FROM charge
+    WHERE charge_date = '$today'
     GROUP BY charge_name
 ) ch
 ON d.cash_name = ch.charge_name
@@ -41,12 +45,16 @@ LEFT JOIN
     SELECT commission_name,
            SUM(commission_amount) total_commission
     FROM commission
+    WHERE commission_date = '$today'
     GROUP BY commission_name
 ) cm
 ON d.cash_name = cm.commission_name
 
 LEFT JOIN balanced_table b
 ON d.cash_name = b.cash_name
+AND b.balance_date = '$today'
+
+WHERE d.cash_date = '$today'
 
 ORDER BY d.cash_name
 ";

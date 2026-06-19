@@ -13,6 +13,23 @@ if(empty($machine) || empty($amount) || empty($location) || empty($date)){
     exit;
 }
 
+// 🔥 CHECK DUPLICATE FIRST
+$check = $conn->query("
+    SELECT capital_id 
+    FROM capital 
+    WHERE capital_name='$machine' 
+    AND capital_date='$date'
+");
+
+if($check->num_rows > 0){
+    echo json_encode([
+        "status" => "exists",
+        "message" => "Capital already exists for this machine today!"
+    ]);
+    exit;
+}
+
+// INSERT
 $sql = "INSERT INTO capital(capital_name, capital_amount, capital_location, capital_date) 
         VALUES ('$machine','$amount','$location','$date')";
 

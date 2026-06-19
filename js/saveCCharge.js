@@ -18,13 +18,17 @@ document.getElementById("saveCharge").onclick = function(){
         body: JSON.stringify({machine, amount, location, date})
     })
     .then(res => res.json())
-    .then(data => {
-        if(data.status === "success"){
-            alert("Charge Added!");
-            loadDashboard(date);
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
+     .then(data => {
+    if(data.status === "success"){
+        alert("Charge Added!");
+        loadDashboard(date);
+    } 
+    else if(data.status === "exists"){
+        alert("⚠️ " + data.message);
+    }
+    else {
+        alert("Error: " + data.message);
+    }
+})
     
 };

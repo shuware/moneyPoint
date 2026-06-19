@@ -13,6 +13,23 @@ if(empty($machine) || empty($amount) || empty($location) || empty($date)){
     exit;
 }
 
+// 🔥 CHECK DUPLICATE FIRST
+$check = $conn->query("
+    SELECT commission_id 
+    FROM commission 
+    WHERE commission_name='$machine' 
+    AND commission_date='$date'
+");
+
+if($check->num_rows > 0){
+    echo json_encode([
+        "status" => "exists",
+        "message" => "Commission already exists for this machine today!"
+    ]);
+    exit;
+}
+
+// INSERT
 $sql = "INSERT INTO commission (commission_name, commission_amount, commission_location, commission_date)
         VALUES ('$machine','$amount','$location','$date')";
 

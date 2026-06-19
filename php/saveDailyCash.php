@@ -6,17 +6,31 @@ if (!$conn) { die("Connection failed: " . mysqli_connect_error()); }
 // Get JSON data
 $data = json_decode(file_get_contents("php://input"), true);
 
+function clean($v){
+    return floatval(str_replace([","," "], "", $v));
+}
+
 $machine = $data['machine'];
-$float   = floatval($data['float']);
-$shop    = floatval($data['shop']);
-$home    = floatval($data['home']);
-$date    = $data['date'];
+$float = clean($data['float']);
+$shop  = clean($data['shop']);
+$home  = clean($data['home']);
+$date  = $data['date'];
 
 if(!$machine || !$float || !$shop || !$home || !$date){
     echo "All fields are required!";
     exit;
 }
+// 🔥 CHECK DUPLICATE BEFORE INSERT
+$check = mysqli_query($conn, "
+    SELECT cash_id FROM dailycash 
+    WHERE cash_name='$machine' 
+    AND cash_date='$date'
+");
 
+if(mysqli_num_rows($check) > 0){
+    echo "⚠️ This machine already has data for today!";
+    exit;
+}
 // 1️⃣ Save daily cash
 $sql = "INSERT INTO dailycash (cash_name, cash_float, cash_shop, cash_home, cash_date) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
