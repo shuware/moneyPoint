@@ -82,8 +82,27 @@
 
     <label>Date:</label>
     <input type="date" id="dailydate" required><br><br>
+    <input type="hidden" id="editId">
 
     <button type="button" id="dailys">Save</button>
+    <h2>Daily Cash Records</h2>
+
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>Machine</th>
+            <th>Float</th>
+            <th>Shop</th>
+            <th>Home</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="dailyCashBody">
+
+    </tbody>
+</table>
 </div>
   <!-- charges add -->
    <div id="chargeModal" class="page-content" style="display:none">
@@ -285,6 +304,8 @@ Balance Machines
 <script src="js/format.js"></script>
 <script src="js/direc.js"></script>
 <script src="js/repor.js"></script>
+<script src="js/deletedailycash.js"></script>
+<script src="js/updatedailycash.js"></script>
 
 
 
